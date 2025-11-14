@@ -1,0 +1,6 @@
+@DevNet.Api_HostAddress = http://localhost:5126
+
+GET {{DevNet.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

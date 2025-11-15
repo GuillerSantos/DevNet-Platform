@@ -8,7 +8,7 @@ namespace DevNet.Persistence.Repositories
     {
         #region Fields
 
-        private readonly AppDbContext dbContext;
+        public readonly AppDbContext dbContext;
 
         #endregion Fields
 

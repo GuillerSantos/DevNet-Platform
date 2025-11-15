@@ -24,6 +24,9 @@ namespace DevNet.Persistence.Configurations.Users
             builder.Property(rt => rt.ExpiresAt)
                 .IsRequired();
 
+            builder.Property(rt => rt.UpdatedAt)
+                .IsRequired();
+
             builder.Property(rt => rt.IsRevoked)
                 .IsRequired();
 

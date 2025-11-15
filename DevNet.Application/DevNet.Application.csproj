@@ -10,8 +10,6 @@
     <Folder Include="Common\Mapping\ApplicationUserProfile\" />
     <Folder Include="Contracts\Infrastructure\" />
     <Folder Include="Contracts\Application\" />
-    <Folder Include="Contracts\Persistence\" />
-    <Folder Include="DTO\ApplicationUser\" />
     <Folder Include="Features\Auth\Commands\GoogleLogin\" />
     <Folder Include="Features\Auth\Commands\Login\" />
     <Folder Include="Features\Auth\Commands\Logout\" />
@@ -26,6 +24,10 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="9.0.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\DevNet.Domain\DevNet.Domain.csproj" />
   </ItemGroup>
 
 </Project>

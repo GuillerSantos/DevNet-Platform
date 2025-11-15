@@ -1,17 +1,16 @@
 ﻿using DevNet.Domain.Enums;
 
-namespace DevNet.Domain.Entities
+namespace DevNet.Application.DTO.Auth
 {
-    public class ApplicationUser : BaseEntity
+    public class RegisterRequest
     {
         #region Properties
 
         public string FirstName { get; set; } = string.Empty;
         public string LastName { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
-        public string PasswordHash { get; set; } = string.Empty;
+        public string ConfirmPassword { get; set; } = string.Empty;
         public Roles Role { get; set; }
-        public virtual ICollection<RefreshToken>? RefreshTokens { get; set; } = new List<RefreshToken>();
 
         #endregion Properties
     }

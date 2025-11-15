@@ -10,6 +10,8 @@ namespace DevNet.Persistence.Configurations.Users
 
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
+            builder.ToTable("ApplicationUsers");
+
             builder.HasKey(au => au.Id);
             builder.Property(au => au.FirstName)
                 .IsRequired()

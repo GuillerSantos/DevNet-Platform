@@ -12,6 +12,7 @@ namespace DevNet.Application.DependencyInjections
             this IServiceCollection services, IConfiguration configuration)
         {
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
 
             var assembly = Assembly.GetExecutingAssembly();
 

@@ -11,7 +11,7 @@ namespace DevNet.Domain.Entities
         public string Email { get; set; } = string.Empty;
         public string PasswordHash { get; set; } = string.Empty;
         public Roles Role { get; set; }
-        public virtual ICollection<RefreshToken>? RefreshTokens { get; set; } = new List<RefreshToken>();
+        public virtual ICollection<RefreshTokens>? RefreshTokens { get; set; } = new List<RefreshTokens>();
 
         #endregion Properties
     }

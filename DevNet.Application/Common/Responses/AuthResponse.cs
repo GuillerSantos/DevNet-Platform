@@ -1,6 +1,6 @@
 ﻿using DevNet.Domain.Enums;
 
-namespace DevNet.Application.Common.Responses.Auth
+namespace DevNet.Application.Common.Responses
 {
     public class AuthResponse
     {

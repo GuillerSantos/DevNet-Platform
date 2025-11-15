@@ -1,4 +1,4 @@
-﻿using DevNet.Application.Contracts.Persistence;
+﻿using DevNet.Application.Abstractions.Persistence;
 using DevNet.Application.Features.RefreshTokens.Commands.GetByEmail;
 using DevNet.Domain.Entities;
 using DevNet.Persistence.DBContext;
@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevNet.Persistence.Repositories
 {
-    public class RefreshTokenRepository : AsyncBaseRepository<RefreshToken>, IRefreshTokenRepository
+    public class RefreshTokenRepository : AsyncBaseRepository<RefreshTokens>, IRefreshTokenRepository
     {
         #region Public Constructors
 
@@ -20,11 +20,11 @@ namespace DevNet.Persistence.Repositories
 
         public async Task<RefreshTokenDto?> GetByEmailAsync(string email)
         {
-            return await dbContext.Set<RefreshToken>()
+            return await dbContext.Set<RefreshTokens>()
                 .Where(rt => rt.Email.ToLower() == email.ToLower() && !rt.IsRevoked)
                 .Select(rt => new RefreshTokenDto(
                     rt.Id,
-                    rt.RefreshTokens,
+                    rt.RefreshToken,
                     rt.Email,
                     rt.ExpiresAt,
                     rt.IsRevoked,
@@ -38,11 +38,11 @@ namespace DevNet.Persistence.Repositories
 
         public async Task<RefreshTokenDto?> GetByRefreshTokenAsync(string refreshToken)
         {
-            return await dbContext.Set<RefreshToken>()
-                .Where(rt => rt.RefreshTokens == refreshToken && !rt.IsRevoked)
+            return await dbContext.Set<RefreshTokens>()
+                .Where(rt => rt.RefreshToken == refreshToken && !rt.IsRevoked)
                 .Select(rt => new RefreshTokenDto(
                     rt.Id,
-                    rt.RefreshTokens,
+                    rt.RefreshToken,
                     rt.Email,
                     rt.ExpiresAt,
                     rt.IsRevoked,
@@ -56,7 +56,7 @@ namespace DevNet.Persistence.Repositories
 
         public async Task RevokeAllUserRefreshTokenAsync(string email)
         {
-            var tokens = await dbContext.Set<RefreshToken>()
+            var tokens = await dbContext.Set<RefreshTokens>()
                  .Where(rt => rt.Email.ToLower() == email.ToLower() && !rt.IsRevoked)
                  .ToListAsync();
 
@@ -66,19 +66,19 @@ namespace DevNet.Persistence.Repositories
                 token.UpdatedAt = DateTime.UtcNow;
             }
 
-            dbContext.Set<RefreshToken>().UpdateRange(tokens);
+            dbContext.Set<RefreshTokens>().UpdateRange(tokens);
         }
 
         public async Task RevokeRefreshTokenAsync(string refreshToken)
         {
-            var _refreshToken = await dbContext.Set<RefreshToken>()
-                .FirstOrDefaultAsync(rt => rt.RefreshTokens == refreshToken);
+            var _refreshToken = await dbContext.Set<RefreshTokens>()
+                .FirstOrDefaultAsync(rt => rt.RefreshToken == refreshToken);
 
             if (_refreshToken != null)
             {
                 _refreshToken.IsRevoked = true;
                 _refreshToken.UpdatedAt = DateTime.UtcNow;
-                dbContext.Set<RefreshToken>().Update(_refreshToken);
+                dbContext.Set<RefreshTokens>().Update(_refreshToken);
             }
         }
 

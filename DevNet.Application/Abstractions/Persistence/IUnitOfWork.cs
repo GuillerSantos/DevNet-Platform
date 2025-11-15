@@ -1,4 +1,4 @@
-﻿namespace DevNet.Application.Contracts.Persistence
+﻿namespace DevNet.Application.Abstractions.Persistence
 {
     public interface IUnitOfWork
     {

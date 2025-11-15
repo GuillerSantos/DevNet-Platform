@@ -1,9 +1,9 @@
 ﻿using DevNet.Application.Features.RefreshTokens.Commands.GetByEmail;
 using DevNet.Domain.Entities;
 
-namespace DevNet.Application.Contracts.Persistence
+namespace DevNet.Application.Abstractions.Persistence
 {
-    public interface IRefreshTokenRepository : IAsyncBaseRepository<RefreshToken>
+    public interface IRefreshTokenRepository : IAsyncBaseRepository<RefreshTokens>
     {
         #region Public Methods
 

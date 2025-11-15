@@ -1,4 +1,5 @@
 ﻿using DevNet.Application.Common.Responses;
+using DevNet.Application.Exceptions;
 using System.Net;
 using System.Text.Json;
 
@@ -25,12 +26,12 @@ namespace DevNet.Api.Middleware
 
         #region Private Methods
 
-        private static int GetStatusCodeFromException(Exception exception) => exception switch
+        private static int GetStatusCodeFromException(Exception ex) => ex switch
         {
-            ArgumentException or ArgumentNullException => (int) HttpStatusCode.BadRequest,
-            KeyNotFoundException => (int) HttpStatusCode.NotFound,
-            UnauthorizedAccessException => (int) HttpStatusCode.Unauthorized,
-            InvalidOperationException => (int) HttpStatusCode.BadRequest,
+            BadRequestException => (int) HttpStatusCode.BadRequest,
+            NotFoundException => (int) HttpStatusCode.NotFound,
+            UnauthorizedException => (int) HttpStatusCode.Unauthorized,
+            ValidationException => (int) HttpStatusCode.BadRequest,
             _ => (int) HttpStatusCode.InternalServerError
         };
 
@@ -54,10 +55,11 @@ namespace DevNet.Api.Middleware
 
             context.Response.StatusCode = GetStatusCodeFromException(exception);
 
-            var errorResponse = new Response
+            var errorResponse = new BaseResponse<object>
             {
                 Success = false,
-                ErrorMessage = GetErrorMessageFromException(exception, context.Response.StatusCode)
+                Message = GetErrorMessageFromException(exception, context.Response.StatusCode),
+                Data = null
             };
 
             var options = new JsonSerializerOptions

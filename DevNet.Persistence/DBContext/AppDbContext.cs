@@ -13,7 +13,7 @@ namespace DevNet.Persistence.DBContext
 
         public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
-        public DbSet<RefreshToken> RefreshTokens { get; set; }
+        public DbSet<RefreshTokens> RefreshTokens { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

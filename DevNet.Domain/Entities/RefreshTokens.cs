@@ -1,10 +1,10 @@
 ﻿namespace DevNet.Domain.Entities
 {
-    public class RefreshToken : BaseEntity
+    public class RefreshTokens : BaseEntity
     {
         #region Properties
 
-        public string RefreshTokens { get; set; } = string.Empty;
+        public string RefreshToken { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;
         public DateTime ExpiresAt { get; set; }
         public DateTime UpdatedAt { get; set; }

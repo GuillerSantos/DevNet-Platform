@@ -1,6 +1,6 @@
 ﻿using DevNet.Domain.Entities;
 
-namespace DevNet.Application.Contracts.Persistence
+namespace DevNet.Application.Abstractions.Persistence
 {
     public interface IApplicationUserRepository : IAsyncBaseRepository<ApplicationUser>
     {

@@ -1,4 +1,4 @@
-﻿using DevNet.Application.Contracts.Persistence;
+﻿using DevNet.Application.Abstractions.Persistence;
 using DevNet.Persistence.DBContext;
 using Microsoft.EntityFrameworkCore;
 

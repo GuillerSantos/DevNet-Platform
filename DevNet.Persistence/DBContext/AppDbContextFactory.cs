@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
 
 namespace DevNet.Persistence.DBContext
 {
@@ -10,19 +9,12 @@ namespace DevNet.Persistence.DBContext
 
         public AppDbContext CreateDbContext(string[] args)
         {
-            IConfigurationRoot configuration = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")
-                .Build();
+            var optionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
 
-            var OptionsBuilder = new DbContextOptionsBuilder<AppDbContext>();
-            var connectionString = configuration.GetConnectionString("DefaultConnection")
-                ?? throw new InvalidOperationException(
-                    "Connection string 'DefaultConnection' not found.");
+            optionsBuilder.UseSqlServer(DbContextConfig.GetConnectionString())
+                          .UseLazyLoadingProxies();
 
-            OptionsBuilder.UseSqlServer(connectionString);
-
-            return new AppDbContext(OptionsBuilder.Options);
+            return new AppDbContext(optionsBuilder.Options);
         }
 
         #endregion Public Methods

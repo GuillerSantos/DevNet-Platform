@@ -24,11 +24,13 @@ namespace DevNet.Application.Features.Auth.Commands.RefreshToken
 
                 if (storedToken == null || storedToken.IsRevoked || storedToken.ExpiresAt < DateTime.UtcNow)
                     return Result<AuthResponse>.Failure("Invalid or expired refresh token.");
+                // GlobalExceptionMiddleware: throw new UnauthorizedException("Invalid or expired refresh token.");
 
                 var user = await applicationUserRepository.GetByEmailAsync(storedToken.Email);
 
                 if (user == null)
                     return Result<AuthResponse>.Failure("User not found.");
+                // GlobalExceptionMiddleware: throw new NotFoundException("User not found.");
 
                 await unitOfWork.BeginTransactionAsync(cancellationToken);
 
@@ -60,7 +62,8 @@ namespace DevNet.Application.Features.Auth.Commands.RefreshToken
             catch (Exception ex)
             {
                 await unitOfWork.RollBackAsync(cancellationToken);
-                return Result<AuthResponse>.Failure($"An error occurred while refreshing the token: {ex.Message}");
+                return Result<AuthResponse>.Failure($"An Error Occured: {ex.Message}");
+                // GlobalExceptionMiddleware: throw;
             }
         }
 
